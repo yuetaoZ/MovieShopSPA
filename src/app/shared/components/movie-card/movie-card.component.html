@@ -1,1 +1,9 @@
-<p>movie-card works!</p>
+<div class="card mb-4 shadow bg-light">
+  <a [routerLink]="['/movies', movieCard.id]">
+    <img
+      src="{{ movieCard.posterUrl }}"
+      alt="movieCard.title"
+      class="img-fluid"
+    />
+  </a>
+</div>

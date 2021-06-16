@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MovieDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
+  id!: number;
   ngOnInit(): void {
+    // read the id from the Route
+    console.log('inside Movie details page');
+    this.route.params.subscribe(
+      params => {
+        console.log(params);
+        this.id = +params.id;
+        console.log('Movie Id:' + this.id);
+        // call the MovieService that will call the Movie Details API.
+      }
+    )
+
   }
 
 }

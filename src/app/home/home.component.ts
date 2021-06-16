@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MovieService } from '../core/services/movie.service';
+import { MovieCard } from '../shared/models/moviecard';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private movieService: MovieService) { }
 
+  movies!: MovieCard[];
+  // Angular life cycle hooks
   ngOnInit(): void {
+
+    // call our service
+    this.movieService.getTopRevenueMovies().subscribe(
+      m => {
+        this.movies = m;
+        console.log('inside Home Component');
+        console.log(this.movies);
+      }
+    );
   }
 
 }
