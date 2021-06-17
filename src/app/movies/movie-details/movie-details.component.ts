@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { MovieService } from '../../core/services/movie.service';
 import { ActivatedRoute } from '@angular/router';
+import { MovieDetails } from 'src/app/shared/models/moviedetails';
 
 @Component({
   selector: 'app-movie-details',
@@ -8,22 +10,29 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MovieDetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private movieService: MovieService) { }
 
   id!: number;
+  movieDetails!: MovieDetails;
+
   ngOnInit(): void {
     // read the id from the Route
     console.log('inside Movie details page');
     this.route.paramMap.subscribe(
       params => {
-        console.log(params);
-        console.log(params.get('id'));
         this.id = Number(params.get('id'));
         console.log('Movie Id:' + this.id);
         // call the MovieService that will call the Movie Details API.
+        this.getMovieDetails()
       }
-    )
+    );
+  }
 
+  private getMovieDetails() {
+      this.movieService.getMovieDetailsById(this.id)
+        .subscribe(m => {
+          this.movieDetails = m;
+    })
   }
 
 }

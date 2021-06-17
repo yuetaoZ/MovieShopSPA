@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MovieCard } from 'src/app/shared/models/moviecard';
+import { MovieDetails } from 'src/app/shared/models/moviedetails';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -25,6 +26,12 @@ export class MovieService {
     return this.http.get(`${environment.apiUrl}${'Movies/toprevenue'}`)
       .pipe(map(resp => resp as MovieCard[]))
 
+  }
+
+  getMovieDetailsById(Id: number) {
+
+    return this.http.get(`${environment.apiUrl}${'Movies/Details?id='}${Id}`)
+    .pipe(map(resp => resp as MovieDetails))
   }
 
 }
